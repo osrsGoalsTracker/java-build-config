@@ -37,12 +37,6 @@
         <property name="fileExtensions" value="java"/>
     </module>
 
-    <module name="RegexpHeader">
-        <property name="headerFile" value="${config_loc}/java.header" default="java.header"/>
-        <property name="fileExtensions" value="java"/>
-        <property name="optional" value="true"/>
-    </module>
-
     <module name="UniqueProperties"/>
 
     <module name="TreeWalker">
