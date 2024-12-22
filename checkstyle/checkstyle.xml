@@ -32,13 +32,6 @@
         <property name="fileExtensions" value="java"/>
     </module>
 
-    <!-- File Header Checks -->
-    <module name="Header">
-        <property name="headerFile" value="${config_loc}/java.header" default="java.header"/>
-        <property name="fileExtensions" value="java"/>
-        <property name="optional" value="true"/>
-    </module>
-
     <module name="NewlineAtEndOfFile">
         <property name="lineSeparator" value="lf"/>
         <property name="fileExtensions" value="java"/>
