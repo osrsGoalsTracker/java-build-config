@@ -237,33 +237,22 @@
 
         <!-- Javadoc -->
         <module name="InvalidJavadocPosition"/>
-        <module name="JavadocMethod">
-            <property name="modifiers" value="public"/>
-            <property name="allowMissingParamTags" value="false"/>
-            <property name="allowMissingReturnTag" value="false"/>
+        <module name="MissingJavadocMethod">
+            <property name="accessModifiers" value="public"/>
             <property name="validateThrows" value="true"/>
             <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
-        <module name="JavadocType">
-            <property name="modifiers" value="public"/>
+        <module name="MissingJavadocType">
+            <property name="accessModifiers" value="public"/>
             <property name="allowUnknownTags" value="true"/>
             <property name="tokens" value="INTERFACE_DEF, CLASS_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
         </module>
         <module name="JavadocVariable">
-            <property name="modifiers" value="public"/>
+            <property name="accessModifiers" value="public"/>
         </module>
         <module name="JavadocStyle">
             <property name="checkFirstSentence" value="true"/>
             <property name="checkEmptyJavadoc" value="true"/>
-        </module>
-        <module name="MissingJavadocMethod">
-            <property name="modifiers" value="public"/>
-            <property name="allowMissingPropertyJavadoc" value="true"/>
-            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
-        </module>
-        <module name="MissingJavadocType">
-            <property name="modifiers" value="public"/>
-            <property name="tokens" value="INTERFACE_DEF, CLASS_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
         </module>
         <module name="JavadocMissingLeadingAsterisk"/>
         <module name="JavadocMissingWhitespaceAfterAsterisk"/>
