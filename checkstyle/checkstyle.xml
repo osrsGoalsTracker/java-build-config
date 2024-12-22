@@ -7,29 +7,67 @@
     <property name="charset" value="UTF-8"/>
     <property name="severity" value="warning"/>
     <property name="fileExtensions" value="java"/>
+    <property name="tabWidth" value="4"/>
+
+    <!-- Suppressions -->
+    <module name="SuppressionFilter">
+        <property name="file" value="${config_loc}/suppressions.xml" default="suppressions.xml"/>
+        <property name="optional" value="true"/>
+    </module>
 
     <!-- Checks for Size Violations -->
     <module name="FileLength">
         <property name="max" value="2000"/>
     </module>
 
-    <!-- Moved LineLength here as it must be a direct child of Checker -->
     <module name="LineLength">
         <property name="max" value="120"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
 
+    <!-- New: Checks for file header -->
+    <module name="Header">
+        <property name="headerFile" value="${config_loc}/java.header" default="java.header"/>
+        <property name="fileExtensions" value="java"/>
+        <property name="optional" value="true"/>
+    </module>
+
+    <!-- New: Checks for NewlineAtEndOfFile -->
+    <module name="NewlineAtEndOfFile">
+        <property name="lineSeparator" value="lf"/>
+    </module>
+
     <module name="TreeWalker">
+        <!-- Annotations -->
+        <module name="AnnotationLocation"/>
+        <module name="AnnotationUseStyle"/>
+        <module name="MissingOverride"/>
+        <module name="PackageAnnotation"/>
+
         <!-- Checks for Naming Conventions -->
         <module name="ConstantName"/>
         <module name="LocalFinalVariableName"/>
-        <module name="LocalVariableName"/>
-        <module name="MemberName"/>
-        <module name="MethodName"/>
-        <module name="PackageName"/>
-        <module name="ParameterName"/>
+        <module name="LocalVariableName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+        </module>
+        <module name="MemberName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+        </module>
+        <module name="MethodName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+        </module>
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+        </module>
+        <module name="ParameterName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+        </module>
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
+        <module name="LambdaParameterName"/>
+        <module name="PatternVariableName"/>
+        <module name="RecordComponentName"/>
+        <module name="RecordTypeParameterName"/>
 
         <!-- Checks for imports -->
         <module name="AvoidStarImport"/>
@@ -63,6 +101,11 @@
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
         <module name="WhitespaceAround"/>
+        <module name="NoLineWrap"/>
+        <module name="EmptyLineSeparator">
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+        </module>
+        <module name="SeparatorWrap"/>
 
         <!-- Modifier Checks -->
         <module name="ModifierOrder"/>
@@ -83,35 +126,94 @@
         <module name="MagicNumber">
             <property name="ignoreNumbers" value="-1, 0, 1, 2"/>
             <property name="ignoreHashCodeMethod" value="true"/>
+            <property name="ignoreAnnotation" value="true"/>
+            <property name="ignoreFieldDeclaration" value="true"/>
         </module>
         <module name="MissingSwitchDefault"/>
         <module name="MultipleVariableDeclarations"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
+        <module name="FallThrough"/>
+        <module name="IllegalTokenText"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="NestedForDepth">
+            <property name="max" value="3"/>
+        </module>
+        <module name="NestedIfDepth">
+            <property name="max" value="3"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="3"/>
+        </module>
+        <module name="NoClone"/>
+        <module name="NoFinalizer"/>
+        <module name="SuperClone"/>
+        <module name="SuperFinalize"/>
 
         <!-- Checks for class design -->
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
-        <module name="VisibilityModifier"/>
+        <module name="VisibilityModifier">
+            <property name="protectedAllowed" value="true"/>
+        </module>
+        <module name="OneTopLevelClass"/>
+        <module name="MutableException"/>
 
         <!-- Miscellaneous other checks -->
         <module name="ArrayTypeStyle"/>
         <module name="TodoComment"/>
         <module name="UpperEll"/>
+        <module name="OuterTypeFilename"/>
+        <module name="AvoidEscapedUnicodeCharacters"/>
 
         <!-- Checks for Javadoc -->
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
             <property name="allowMissingParamTags" value="false"/>
             <property name="allowMissingReturnTag" value="false"/>
+            <property name="validateThrows" value="true"/>
         </module>
         <module name="JavadocType">
             <property name="scope" value="public"/>
+            <property name="allowUnknownTags" value="true"/>
         </module>
         <module name="JavadocVariable">
             <property name="scope" value="public"/>
         </module>
-        <module name="JavadocStyle"/>
+        <module name="JavadocStyle">
+            <property name="checkFirstSentence" value="true"/>
+            <property name="checkEmptyJavadoc" value="true"/>
+        </module>
+        <module name="MissingJavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+        </module>
+        <module name="MissingJavadocType">
+            <property name="scope" value="public"/>
+        </module>
+
+        <!-- Lambda Checks -->
+        <module name="LambdaBodyLength">
+            <property name="max" value="10"/>
+        </module>
+
+        <!-- Coding -->
+        <module name="CovariantEquals"/>
+        <module name="DefaultComesLast"/>
+        <module name="DeclarationOrder"/>
+        <module name="EmptyStatement"/>
+        <module name="EqualsAvoidNull"/>
+        <module name="ExplicitInitialization"/>
+        <module name="FinalLocalVariable"/>
+        <module name="IllegalCatch"/>
+        <module name="IllegalThrows"/>
+        <module name="PackageDeclaration"/>
+        <module name="ReturnCount">
+            <property name="max" value="4"/>
+        </module>
+        <module name="StringLiteralEquality"/>
+        <module name="UnnecessaryParentheses"/>
+        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
     </module>
 </module>
