@@ -15,31 +15,48 @@
         <property name="optional" value="true"/>
     </module>
 
+    <!-- BeforeExecutionFileFilters -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+
     <!-- Checks for Size Violations -->
     <module name="FileLength">
         <property name="max" value="2000"/>
+        <property name="fileExtensions" value="java"/>
     </module>
 
     <module name="LineLength">
         <property name="max" value="120"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+        <property name="fileExtensions" value="java"/>
     </module>
 
-    <!-- New: Checks for file header -->
+    <!-- File Header Checks -->
     <module name="Header">
         <property name="headerFile" value="${config_loc}/java.header" default="java.header"/>
         <property name="fileExtensions" value="java"/>
         <property name="optional" value="true"/>
     </module>
 
-    <!-- New: Checks for NewlineAtEndOfFile -->
     <module name="NewlineAtEndOfFile">
         <property name="lineSeparator" value="lf"/>
+        <property name="fileExtensions" value="java"/>
     </module>
+
+    <module name="RegexpHeader">
+        <property name="headerFile" value="${config_loc}/java.header" default="java.header"/>
+        <property name="fileExtensions" value="java"/>
+        <property name="optional" value="true"/>
+    </module>
+
+    <module name="UniqueProperties"/>
 
     <module name="TreeWalker">
         <!-- Annotations -->
-        <module name="AnnotationLocation"/>
+        <module name="AnnotationLocation">
+            <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
+        </module>
         <module name="AnnotationUseStyle"/>
         <module name="MissingOverride"/>
         <module name="PackageAnnotation"/>
@@ -49,6 +66,7 @@
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="allowOneCharVarInForLoop" value="true"/>
         </module>
         <module name="MemberName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
@@ -61,6 +79,7 @@
         </module>
         <module name="ParameterName">
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="ignoreOverridden" value="true"/>
         </module>
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
@@ -69,9 +88,11 @@
         <module name="RecordComponentName"/>
         <module name="RecordTypeParameterName"/>
 
-        <!-- Checks for imports -->
+        <!-- Imports -->
         <module name="AvoidStarImport"/>
-        <module name="IllegalImport"/>
+        <module name="IllegalImport">
+            <property name="illegalPkgs" value="sun, com.sun"/>
+        </module>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="ImportOrder">
@@ -82,15 +103,40 @@
             <property name="sortStaticImportsAlphabetically" value="true"/>
         </module>
 
-        <!-- Checks for Size Violations -->
+        <!-- Metrics -->
+        <module name="BooleanExpressionComplexity">
+            <property name="max" value="4"/>
+        </module>
+        <module name="ClassDataAbstractionCoupling">
+            <property name="max" value="7"/>
+            <property name="excludeClassesRegexps" value=".*Builder$"/>
+        </module>
+        <module name="ClassFanOutComplexity">
+            <property name="max" value="20"/>
+        </module>
+        <module name="CyclomaticComplexity">
+            <property name="max" value="10"/>
+        </module>
+        <module name="JavaNCSS">
+            <property name="methodMaximum" value="50"/>
+            <property name="classMaximum" value="1500"/>
+            <property name="fileMaximum" value="2000"/>
+        </module>
+        <module name="NPathComplexity">
+            <property name="max" value="200"/>
+        </module>
+
+        <!-- Size Violations -->
         <module name="MethodLength">
             <property name="max" value="60"/>
+            <property name="countEmpty" value="false"/>
         </module>
         <module name="ParameterNumber">
             <property name="max" value="8"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
         </module>
 
-        <!-- Checks for whitespace -->
+        <!-- Whitespace -->
         <module name="EmptyForIteratorPad"/>
         <module name="GenericWhitespace"/>
         <module name="MethodParamPad"/>
@@ -104,21 +150,31 @@
         <module name="NoLineWrap"/>
         <module name="EmptyLineSeparator">
             <property name="allowNoEmptyLineBetweenFields" value="true"/>
+            <property name="allowMultipleEmptyLines" value="false"/>
         </module>
-        <module name="SeparatorWrap"/>
+        <module name="SeparatorWrap">
+            <property name="tokens" value="COMMA"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="tokens" value="DOT"/>
+            <property name="option" value="NL"/>
+        </module>
 
-        <!-- Modifier Checks -->
+        <!-- Modifiers -->
         <module name="ModifierOrder"/>
         <module name="RedundantModifier"/>
 
-        <!-- Checks for blocks -->
+        <!-- Blocks -->
         <module name="AvoidNestedBlocks"/>
-        <module name="EmptyBlock"/>
+        <module name="EmptyBlock">
+            <property name="option" value="TEXT"/>
+        </module>
         <module name="LeftCurly"/>
         <module name="NeedBraces"/>
         <module name="RightCurly"/>
 
-        <!-- Checks for common coding problems -->
+        <!-- Coding -->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="IllegalInstantiation"/>
@@ -128,6 +184,7 @@
             <property name="ignoreHashCodeMethod" value="true"/>
             <property name="ignoreAnnotation" value="true"/>
             <property name="ignoreFieldDeclaration" value="true"/>
+            <property name="constantWaiverParentToken" value="ASSIGN, ARRAY_INIT, EXPR, UNARY_PLUS, UNARY_MINUS, TYPECAST, ELIST, DIV, PLUS, MINUS, STAR, METHOD_CALL"/>
         </module>
         <module name="MissingSwitchDefault"/>
         <module name="MultipleVariableDeclarations"/>
@@ -150,53 +207,72 @@
         <module name="SuperClone"/>
         <module name="SuperFinalize"/>
 
-        <!-- Checks for class design -->
+        <!-- Class Design -->
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
         <module name="VisibilityModifier">
             <property name="protectedAllowed" value="true"/>
+            <property name="allowPublicFinalFields" value="true"/>
+            <property name="allowPublicImmutableFields" value="true"/>
         </module>
         <module name="OneTopLevelClass"/>
         <module name="MutableException"/>
+        <module name="ThrowsCount">
+            <property name="max" value="4"/>
+        </module>
 
-        <!-- Miscellaneous other checks -->
+        <!-- Miscellaneous -->
         <module name="ArrayTypeStyle"/>
-        <module name="TodoComment"/>
+        <module name="TodoComment">
+            <property name="format" value="(TODO)|(FIXME)"/>
+        </module>
         <module name="UpperEll"/>
         <module name="OuterTypeFilename"/>
-        <module name="AvoidEscapedUnicodeCharacters"/>
+        <module name="AvoidEscapedUnicodeCharacters">
+            <property name="allowEscapesForControlCharacters" value="true"/>
+            <property name="allowByTailComment" value="true"/>
+            <property name="allowNonPrintableEscapes" value="true"/>
+        </module>
 
-        <!-- Checks for Javadoc -->
+        <!-- Javadoc -->
+        <module name="InvalidJavadocPosition"/>
         <module name="JavadocMethod">
-            <property name="scope" value="public"/>
+            <property name="modifiers" value="public"/>
             <property name="allowMissingParamTags" value="false"/>
             <property name="allowMissingReturnTag" value="false"/>
             <property name="validateThrows" value="true"/>
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="JavadocType">
-            <property name="scope" value="public"/>
+            <property name="modifiers" value="public"/>
             <property name="allowUnknownTags" value="true"/>
+            <property name="tokens" value="INTERFACE_DEF, CLASS_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
         </module>
         <module name="JavadocVariable">
-            <property name="scope" value="public"/>
+            <property name="modifiers" value="public"/>
         </module>
         <module name="JavadocStyle">
             <property name="checkFirstSentence" value="true"/>
             <property name="checkEmptyJavadoc" value="true"/>
         </module>
         <module name="MissingJavadocMethod">
-            <property name="scope" value="public"/>
+            <property name="modifiers" value="public"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
         </module>
         <module name="MissingJavadocType">
-            <property name="scope" value="public"/>
+            <property name="modifiers" value="public"/>
+            <property name="tokens" value="INTERFACE_DEF, CLASS_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
         </module>
+        <module name="JavadocMissingLeadingAsterisk"/>
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
 
-        <!-- Lambda Checks -->
+        <!-- Lambda -->
         <module name="LambdaBodyLength">
             <property name="max" value="10"/>
         </module>
+        <module name="LambdaParameterName"/>
 
         <!-- Coding -->
         <module name="CovariantEquals"/>
@@ -211,9 +287,19 @@
         <module name="PackageDeclaration"/>
         <module name="ReturnCount">
             <property name="max" value="4"/>
+            <property name="maxForVoid" value="3"/>
         </module>
         <module name="StringLiteralEquality"/>
         <module name="UnnecessaryParentheses"/>
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
+        
+        <!-- New in 10.12.5 -->
+        <module name="NoEnumTrailingComma"/>
+        <module name="ParameterAssignment"/>
+        <module name="RequireThis">
+            <property name="validateOnlyOverlapping" value="true"/>
+        </module>
+        <module name="UnnecessaryImport"/>
+        <module name="UnusedLocalVariable"/>
     </module>
 </module>
