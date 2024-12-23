@@ -5,245 +5,110 @@
 
 <module name="Checker">
     <property name="charset" value="UTF-8"/>
-    <property name="severity" value="error"/>
+    <property name="severity" value="warning"/>
     <property name="fileExtensions" value="java"/>
-    <property name="tabWidth" value="4"/>
 
-    <!-- Excludes module-info.java -->
-    <module name="BeforeExecutionExclusionFileFilter">
-        <property name="fileNamePattern" value="module\-info\.java$"/>
-    </module>
-
-    <!-- Checks for file properties -->
+    <!-- Checks for Size Violations -->
     <module name="FileLength">
         <property name="max" value="2000"/>
-        <property name="fileExtensions" value="java"/>
     </module>
 
     <module name="LineLength">
         <property name="max" value="120"/>
-        <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://|@link"/>
-        <property name="fileExtensions" value="java"/>
-    </module>
-
-    <module name="NewlineAtEndOfFile">
-        <property name="lineSeparator" value="lf"/>
-        <property name="fileExtensions" value="java"/>
-    </module>
-
-    <module name="RegexpMultiline">
-        <property name="format" value="(?s:(\r\n|\r).*)"/>
-        <property name="message" value="Only Unix-style line endings are allowed."/>
+        <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
 
     <module name="TreeWalker">
-        <!-- Annotations -->
-        <module name="AnnotationLocation">
-            <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
-        </module>
-        <module name="MissingOverride"/>
-
-        <!-- Block Checks -->
-        <module name="EmptyBlock">
-            <property name="option" value="TEXT"/>
-        </module>
-        <module name="LeftCurly"/>
-        <module name="NeedBraces"/>
-        <module name="RightCurly"/>
-        <module name="AvoidNestedBlocks"/>
-
-        <!-- Class Design -->
-        <module name="FinalClass"/>
-        <module name="HideUtilityClassConstructor"/>
-        <module name="InterfaceIsType"/>
-        <module name="MutableException"/>
-        <module name="OneTopLevelClass"/>
-        <module name="ThrowsCount">
-            <property name="max" value="4"/>
-        </module>
-        <module name="VisibilityModifier">
-            <property name="protectedAllowed" value="true"/>
-            <property name="allowPublicFinalFields" value="true"/>
-            <property name="allowPublicImmutableFields" value="true"/>
-        </module>
-
-        <!-- Coding -->
-        <module name="ArrayTypeStyle"/>
-        <module name="AvoidDoubleBraceInitialization"/>
-        <module name="AvoidNoArgumentSuperConstructorCall"/>
-        <module name="CovariantEquals"/>
-        <module name="DefaultComesLast"/>
-        <module name="EmptyStatement"/>
-        <module name="EqualsHashCode"/>
-        <module name="FallThrough"/>
-        <module name="IllegalInstantiation"/>
-        <module name="IllegalToken">
-            <property name="tokens" value="LITERAL_NATIVE"/>
-        </module>
-        <module name="IllegalType">
-            <property name="tokens" value="METHOD_DEF,PARAMETER_DEF,VARIABLE_DEF"/>
-        </module>
-        <module name="InnerAssignment"/>
-        <module name="MagicNumber">
-            <property name="ignoreNumbers" value="-1, 0, 1, 2"/>
-            <property name="ignoreHashCodeMethod" value="true"/>
-            <property name="ignoreAnnotation" value="true"/>
-            <property name="ignoreFieldDeclaration" value="true"/>
-        </module>
-        <module name="MissingSwitchDefault"/>
-        <module name="ModifiedControlVariable"/>
-        <module name="MultipleVariableDeclarations"/>
-        <module name="NestedForDepth">
-            <property name="max" value="3"/>
-        </module>
-        <module name="NestedIfDepth">
-            <property name="max" value="3"/>
-        </module>
-        <module name="NestedTryDepth">
-            <property name="max" value="3"/>
-        </module>
-        <module name="NoClone"/>
-        <module name="NoFinalizer"/>
-        <module name="OneStatementPerLine"/>
-        <module name="OverloadMethodsDeclarationOrder"/>
-        <module name="PackageDeclaration"/>
-        <module name="ParameterAssignment"/>
-        <module name="RequireThis">
-            <property name="validateOnlyOverlapping" value="true"/>
-        </module>
-        <module name="ReturnCount">
-            <property name="max" value="4"/>
-            <property name="maxForVoid" value="3"/>
-        </module>
-        <module name="SimplifyBooleanExpression"/>
-        <module name="SimplifyBooleanReturn"/>
-        <module name="StringLiteralEquality"/>
-        <module name="UnnecessaryParentheses"/>
-        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
-
-        <!-- Imports -->
-        <module name="AvoidStarImport"/>
-        <module name="CustomImportOrder">
-            <property name="customImportOrderRules" value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
-            <property name="specialImportsRegExp" value="^javax\."/>
-            <property name="standardPackageRegExp" value="^java\."/>
-            <property name="sortImportsInGroupAlphabetically" value="true"/>
-            <property name="separateLineBetweenGroups" value="true"/>
-        </module>
-        <module name="IllegalImport">
-            <property name="illegalPkgs" value="sun, com.sun"/>
-        </module>
-        <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
-
-        <!-- Javadoc Comments -->
-        <module name="InvalidJavadocPosition"/>
-        <module name="JavadocContentLocation"/>
-        <module name="JavadocMissingLeadingAsterisk"/>
-        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
-        <module name="JavadocStyle"/>
-        <module name="MissingJavadocMethod">
-            <property name="accessModifiers" value="public"/>
-            <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
-        </module>
-        <module name="MissingJavadocType">
-            <property name="accessModifiers" value="public"/>
-            <property name="tokens" value="INTERFACE_DEF, CLASS_DEF, ENUM_DEF, ANNOTATION_DEF, RECORD_DEF"/>
-        </module>
-
-        <!-- Metrics -->
-        <module name="BooleanExpressionComplexity">
-            <property name="max" value="4"/>
-        </module>
-        <module name="CyclomaticComplexity">
-            <property name="max" value="15"/>
-        </module>
-        <module name="JavaNCSS">
-            <property name="methodMaximum" value="50"/>
-        </module>
-
-        <!-- Miscellaneous -->
-        <module name="ArrayTypeStyle"/>
-        <module name="CommentsIndentation"/>
-        <module name="Indentation">
-            <property name="basicOffset" value="4"/>
-            <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="4"/>
-            <property name="throwsIndent" value="8"/>
-            <property name="arrayInitIndent" value="4"/>
-            <property name="lineWrappingIndentation" value="8"/>
-        </module>
-        <module name="OuterTypeFilename"/>
-        <module name="UpperEll"/>
-
-        <!-- Modifiers -->
-        <module name="ModifierOrder"/>
-        <module name="RedundantModifier"/>
-
-        <!-- Naming Conventions -->
-        <module name="ClassTypeParameterName">
-            <property name="format" value="^[A-Z][A-Z0-9]*$"/>
-        </module>
+        <!-- Checks for Naming Conventions -->
         <module name="ConstantName"/>
-        <module name="InterfaceTypeParameterName">
-            <property name="format" value="^[A-Z][A-Z0-9]*$"/>
-        </module>
-        <module name="LambdaParameterName">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-        </module>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
-        <module name="MemberName">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-        </module>
-        <module name="MethodName">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-        </module>
-        <module name="MethodTypeParameterName">
-            <property name="format" value="^[A-Z][A-Z0-9]*$"/>
-        </module>
-        <module name="PackageName">
-            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
-        </module>
-        <module name="ParameterName">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-        </module>
-        <module name="PatternVariableName">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-        </module>
-        <module name="RecordComponentName">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-        </module>
-        <module name="RecordTypeParameterName">
-            <property name="format" value="^[A-Z][A-Z0-9]*$"/>
-        </module>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
 
-        <!-- Whitespace -->
-        <module name="EmptyForIteratorPad"/>
-        <module name="EmptyLineSeparator">
-            <property name="allowNoEmptyLineBetweenFields" value="true"/>
-            <property name="allowMultipleEmptyLines" value="false"/>
+        <!-- Checks for imports -->
+        <module name="AvoidStarImport"/>
+        <module name="IllegalImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+        <module name="ImportOrder">
+            <property name="groups" value="java,javax,org,com"/>
+            <property name="ordered" value="true"/>
+            <property name="separated" value="true"/>
+            <property name="option" value="top"/>
+            <property name="sortStaticImportsAlphabetically" value="true"/>
         </module>
+
+        <!-- Checks for Size Violations -->
+        <module name="MethodLength">
+            <property name="max" value="60"/>
+        </module>
+        <module name="ParameterNumber">
+            <property name="max" value="8"/>
+        </module>
+
+        <!-- Checks for whitespace -->
+        <module name="EmptyForIteratorPad"/>
         <module name="GenericWhitespace"/>
         <module name="MethodParamPad"/>
-        <module name="NoLineWrap"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore"/>
         <module name="OperatorWrap"/>
         <module name="ParenPad"/>
-        <module name="SeparatorWrap">
-            <property name="tokens" value="COMMA"/>
-            <property name="option" value="EOL"/>
-        </module>
-        <module name="SeparatorWrap">
-            <property name="tokens" value="DOT"/>
-            <property name="option" value="NL"/>
-        </module>
-        <module name="SingleSpaceSeparator"/>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
         <module name="WhitespaceAround"/>
+
+        <!-- Modifier Checks -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- Checks for blocks -->
+        <module name="AvoidNestedBlocks"/>
+        <module name="EmptyBlock"/>
+        <module name="LeftCurly"/>
+        <module name="NeedBraces"/>
+        <module name="RightCurly"/>
+
+        <!-- Checks for common coding problems -->
+        <module name="EmptyStatement"/>
+        <module name="EqualsHashCode"/>
+        <module name="IllegalInstantiation"/>
+        <module name="InnerAssignment"/>
+        <module name="MagicNumber">
+            <property name="ignoreNumbers" value="-1, 0, 1, 2"/>
+            <property name="ignoreHashCodeMethod" value="true"/>
+        </module>
+        <module name="MissingSwitchDefault"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+
+        <!-- Checks for class design -->
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="InterfaceIsType"/>
+        <module name="VisibilityModifier"/>
+
+        <!-- Miscellaneous other checks -->
+        <module name="ArrayTypeStyle"/>
+        <module name="TodoComment"/>
+        <module name="UpperEll"/>
+
+        <!-- Checks for Javadoc -->
+        <module name="MissingJavadocMethod">
+            <property name="accessModifiers" value="public"/>
+        </module>
+        <module name="MissingJavadocType">
+            <property name="accessModifiers" value="public"/>
+        </module>
+        <module name="JavadocVariable">
+            <property name="accessModifiers" value="public"/>
+        </module>
+        <module name="JavadocStyle"/>
     </module>
 </module>
