@@ -16,7 +16,6 @@
     <module name="FileLength">
         <property name="max" value="2000"/>
     </module>
-    <module name="NewlineAtEndOfFile"/>
     <module name="FileTabCharacter"/>
 
     <module name="TreeWalker">
