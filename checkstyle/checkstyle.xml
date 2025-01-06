@@ -129,8 +129,6 @@
 
         <!-- Miscellaneous -->
         <module name="ArrayTypeStyle"/>
-        <module name="CommentsIndentation"/>
-        <module name="Indentation"/>
         <module name="OuterTypeFilename"/>
         <module name="TodoComment"/>
         <module name="UpperEll"/>
