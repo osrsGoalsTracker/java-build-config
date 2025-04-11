@@ -132,7 +132,6 @@
         <!-- Miscellaneous -->
         <module name="ArrayTypeStyle"/>
         <module name="OuterTypeFilename"/>
-        <module name="TodoComment"/>
         <module name="UpperEll"/>
 
         <!-- Modifiers -->
